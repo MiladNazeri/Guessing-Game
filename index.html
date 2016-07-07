@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -16,7 +14,6 @@
   <body>
 
 
-
 <div class="row">
     <div class="col-md-12 text-center top-div" >
         <h1>Guess the Number</h1>
@@ -24,22 +21,33 @@
 </div>
 <div class="row">
     <div class="col-md-6 text-center left-div">
-    <input class="usrInput">
+    <input id="usrInput">
         <br/>
-        <button class="btn btn-default text-center ">Submit</button> <br/>
+        <button id="submitButton" class="btn btn-default text-center ">Submit</button> <br/>
     </div>
-    <div class="col-md-6 right-div">
+    <div class="col-md-3 right-div">
 
-        <bUtton class="btn btn-default text-center ">Play Again</button><br/>
-        <button class="btn btn-default text-center ">Give Me a Hint</button>
+        <button id="playAgain" class="btn btn-default text-center ">Play Again</button><br/>
+        <button id="provideHint" class="btn btn-default text-center ">Give Me a Hint</button>
+    </div>
+    <div class="col-md-3 right-div">
+        <div id="attArray">
+          <span id="attemptsArray">Previous Guesses: </span>
+        </div>
+        <div id="attRemain">
+          <span id="attemptsRemaining"></span>
+        </div>
     </div>
 </div>
 <div class="row">
     <div class="col-md-12 bottom-row">
+      <h2 id="messageToUser"></h2>
     </div>
 </div>
 </div>
 <!-- Latest compiled and minified JavaScript -->
+<script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+<script src="guessingGame.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
   </body>
 
