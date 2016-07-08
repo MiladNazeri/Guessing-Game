@@ -10,7 +10,9 @@
     attemptsRemaining: $("#attemptsRemaining"),
     gameOver: false,
     maxAttempts: 5,
-    hintMessage: ""
+    hintMessage: "",
+    within: 0,
+    coldToHot: {"0":["So HOT","#CF1802"],"1":["HOT","#BF7065"],"2":["WARM","#B9B3BA"],"3":["TEPID","#5E94C4"],"4":["COLD","#1281E3"],"5":["FREEZING", "#141AFF"]}
   }
 
 init();
@@ -22,6 +24,9 @@ $(document).ready(function(){
     $(this).on('keyup', function(e){
         if (event.keyCode == 13)
       fetchPlayersGuessValue();
+    $("#close").on('click', function(){
+        $("#gameOver").hide("fast");
+    })
     })
 })
 
@@ -30,7 +35,7 @@ function init(){
     setup.playersGuess = [];
     setup.winningNumber = generateWinningNumber();
     displayMessage(messageMaker("newGame"));
-    setup.attemptsArray.text("Previous Guesses: ")
+    setup.attemptsArray.text("")
     updateAttemptsRemaining();
 }
 
@@ -50,12 +55,9 @@ function fetchPlayersGuessValue(){
     var tempGuess = +setup.userInput.val();
     if (!isDuplicate(tempGuess)) {
         setup.playersGuess.push(tempGuess);
-        setup.attemptsArray.text("Previous Guesses: " + setup.playersGuess);
+        setup.attemptsArray.text(setup.playersGuess);
         updateAttemptsRemaining();
         compareWinningNumberAndPlayersGuess();
-        if (setup.playersGuess.length === setup.maxAttempts) {
-            playerLost();
-        }
     } else {
         displayMessage(messageMaker("duplicate"));
     }
@@ -64,14 +66,28 @@ function fetchPlayersGuessValue(){
 
 function updateAttemptsRemaining(){
     var attempts =  setup.maxAttempts - setup.playersGuess.length;
-    setup.attemptsRemaining.text(attempts + " attempts remaining")
+    if(attempts < 5) {
+        $("#attemptsArray").animate({"width": "100%", "height": "2.5em"}, "fast").animate({"width": "80%", "height": "2em"}, "fast")
+            $("#attemptsRemaining").animate({"font-size": "3em"}, "fast").animate({"font-size": "2em"}, "fast")
+    }
+    if(attempts === 1) {
+        $("#chancesRemaining").text("Chance Remaining")
+    } else if (attempts === 0) {
+        $("#chancesRemaining").text("Chances Remaining")
+    }
+    setup.attemptsRemaining.text(attempts)
 }
 
 function compareWinningNumberAndPlayersGuess(){
     if (setup.winningNumber === setup.playersGuess[setup.playersGuess.length - 1])
         playerWins();
-    else
+    else{
         playerWrong();
+        if (setup.playersGuess.length === setup.maxAttempts) {
+            playerLost();
+        }
+    }
+
 }
 
 function isDuplicate(num){
@@ -105,8 +121,8 @@ function provideHintFunc(){
 function guessMessage(){
     var lOrH = lowerOrHigher();
     var dOG = distanceOfGuess();
-    var within = Math.ceil(dOG / 5) * 5
-    return "Your guess is " + ((lOrH === 1)?"higer":"lower") + " and within " + within + " digits of the winning number."
+    setup.within = Math.ceil(dOG / 5) * 5
+    return "Your guess is " + ((lOrH === 1)?"higer":"lower") + " and within " + setup.within + " digits of the winning number."
 }
 
 function displayMessage(newMessage) {
@@ -136,14 +152,25 @@ function gameOverFunc(){
 function playerWins(){
     displayMessage(messageMaker("won"));
     gameOver = true;
+    // $("#win").toggle();
+    $("#gameOverMessage").text("YOU WON!!");
+    $("#gameOver").show("fast");
 }
 
 function playerWrong(){
     setup.hintMessage = guessMessage();
     displayMessage(messageMaker("wrong"));
+    if (setup.within/5 > 5){
+        $('#coldToHot').text(setup.coldToHot["5"][0]).css("color", setup.coldToHot["5"][1])
+    } else {
+        $('#coldToHot').text(setup.coldToHot[setup.within/5][0]).css("color", setup.coldToHot[setup.within/5][1])
+    }
+
 }
 
 function playerLost(){
     displayMessage(messageMaker("lost"));
     setup.gameOver = true;
+    $("#gameOverMessage").text("YOU LOST!!");
+    $("#gameOver").show("fast");
 }

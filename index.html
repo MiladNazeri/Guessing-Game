@@ -1,54 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-      <!-- Latest compiled and minified CSS -->
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-
     <link rel="stylesheet" href="guessingGame.css">
-
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+</head>
 
-  </head>
-  <body>
-
-
-<div class="row">
-    <div class="col-md-12 text-center top-div" >
-        <h1>Guess the Number</h1>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-6 text-center left-div">
-    <input id="usrInput">
-        <br/>
-        <button id="submitButton" class="btn btn-default text-center ">Submit</button> <br/>
-    </div>
-    <div class="col-md-3 right-div">
-
-        <button id="playAgain" class="btn btn-default text-center ">Play Again</button><br/>
-        <button id="provideHint" class="btn btn-default text-center ">Give Me a Hint</button>
-    </div>
-    <div class="col-md-3 right-div">
-        <div id="attArray">
-          <span id="attemptsArray">Previous Guesses: </span>
+<body>
+    <div class="main">
+        <div class="row no-gutter">
+            <div class="col-md-12 top-div border" >
+                <h1 style="margin-top:.5em">Guess the Number</h1>
+            </div>
         </div>
-        <div id="attRemain">
-          <span id="attemptsRemaining"></span>
+        <div class="row no-gutter">
+            <div class="col-md-4 left-div no-gutter border">
+                <div id="userInputMain">
+                    <input id="usrInput">
+                    <br/>
+                    <button id="submitButton" class="btn btn-default text-center ">Submit</button>
+                    <br/>
+                    <div id="mainButtons">
+                      <button id="playAgain" class="btn btn-default">Play Again</button>
+                      <button id="provideHint" class="btn btn-default">Give Me a Hint</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 right-div no-gutter">
+                <div class="row">
+                    <div class="col-md-6 border" id="col3a">
+
+                        <div id="attRemain">
+                            <span id="attemptsRemaining"></span>
+                            <h3 id="chancesRemaining">Chances Remaining</h3>
+                            <div>
+                              <span id="coldToHot"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 border" id="col3b">
+                        <div id="attArray">
+                            <h2>Previous Guesses: </h2>
+                            <span id="attemptsArray"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row no-gutter">
+            <div class="col-md-12 bottom-row border">
+                <h2 id="messageToUser" style="margin-top:1em"></h2>
+            </div>
         </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-md-12 bottom-row">
-      <h2 id="messageToUser"></h2>
+    <div id="gameOver">
+      <span id="gameOverMessage"></span>
+      <div id="close">Click to Close</div>
     </div>
-</div>
-</div>
+
+</body>
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
 <script src="guessingGame.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-  </body>
 
 </html>
